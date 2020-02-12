@@ -14,7 +14,13 @@ import (
 
 // Bool inserts value in list.
 func Bool(list []bool, index int, value ...bool) []bool {
-	extendedList := append(list, value...)
+	var extendedList []bool
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]bool, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -22,7 +28,13 @@ func Bool(list []bool, index int, value ...bool) []bool {
 
 // Byte inserts value in list.
 func Byte(list []byte, index int, value ...byte) []byte {
-	extendedList := append(list, value...)
+	var extendedList []byte
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]byte, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -30,7 +42,13 @@ func Byte(list []byte, index int, value ...byte) []byte {
 
 // Complex64 inserts value in list.
 func Complex64(list []complex64, index int, value ...complex64) []complex64 {
-	extendedList := append(list, value...)
+	var extendedList []complex64
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]complex64, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -38,7 +56,13 @@ func Complex64(list []complex64, index int, value ...complex64) []complex64 {
 
 // Complex128 inserts value in list.
 func Complex128(list []complex128, index int, value ...complex128) []complex128 {
-	extendedList := append(list, value...)
+	var extendedList []complex128
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]complex128, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -46,7 +70,13 @@ func Complex128(list []complex128, index int, value ...complex128) []complex128 
 
 // Error inserts value in list.
 func Error(list []error, index int, value ...error) []error {
-	extendedList := append(list, value...)
+	var extendedList []error
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]error, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -54,7 +84,13 @@ func Error(list []error, index int, value ...error) []error {
 
 // Float32 inserts value in list.
 func Float32(list []float32, index int, value ...float32) []float32 {
-	extendedList := append(list, value...)
+	var extendedList []float32
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]float32, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -62,7 +98,13 @@ func Float32(list []float32, index int, value ...float32) []float32 {
 
 // Float64 inserts value in list.
 func Float64(list []float64, index int, value ...float64) []float64 {
-	extendedList := append(list, value...)
+	var extendedList []float64
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]float64, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -70,7 +112,13 @@ func Float64(list []float64, index int, value ...float64) []float64 {
 
 // Int inserts value in list.
 func Int(list []int, index int, value ...int) []int {
-	extendedList := append(list, value...)
+	var extendedList []int
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]int, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -78,7 +126,13 @@ func Int(list []int, index int, value ...int) []int {
 
 // Int8 inserts value in list.
 func Int8(list []int8, index int, value ...int8) []int8 {
-	extendedList := append(list, value...)
+	var extendedList []int8
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]int8, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -86,7 +140,13 @@ func Int8(list []int8, index int, value ...int8) []int8 {
 
 // Int16 inserts value in list.
 func Int16(list []int16, index int, value ...int16) []int16 {
-	extendedList := append(list, value...)
+	var extendedList []int16
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]int16, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -94,7 +154,13 @@ func Int16(list []int16, index int, value ...int16) []int16 {
 
 // Int32 inserts value in list.
 func Int32(list []int32, index int, value ...int32) []int32 {
-	extendedList := append(list, value...)
+	var extendedList []int32
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]int32, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -102,7 +168,13 @@ func Int32(list []int32, index int, value ...int32) []int32 {
 
 // Int64 inserts value in list.
 func Int64(list []int64, index int, value ...int64) []int64 {
-	extendedList := append(list, value...)
+	var extendedList []int64
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]int64, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -110,7 +182,13 @@ func Int64(list []int64, index int, value ...int64) []int64 {
 
 // Interface inserts value in list.
 func Interface(list []interface{}, index int, value ...interface{}) []interface{} {
-	extendedList := append(list, value...)
+	var extendedList []interface{}
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]interface{}, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -118,7 +196,13 @@ func Interface(list []interface{}, index int, value ...interface{}) []interface{
 
 // Pointer inserts value in list.
 func Pointer(list []unsafe.Pointer, index int, value ...unsafe.Pointer) []unsafe.Pointer {
-	extendedList := append(list, value...)
+	var extendedList []unsafe.Pointer
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]unsafe.Pointer, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -126,7 +210,13 @@ func Pointer(list []unsafe.Pointer, index int, value ...unsafe.Pointer) []unsafe
 
 // Rune inserts value in list.
 func Rune(list []rune, index int, value ...rune) []rune {
-	extendedList := append(list, value...)
+	var extendedList []rune
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]rune, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -134,7 +224,13 @@ func Rune(list []rune, index int, value ...rune) []rune {
 
 // String inserts value in list.
 func String(list []string, index int, value ...string) []string {
-	extendedList := append(list, value...)
+	var extendedList []string
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]string, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -142,7 +238,13 @@ func String(list []string, index int, value ...string) []string {
 
 // UInt inserts value in list.
 func UInt(list []uint, index int, value ...uint) []uint {
-	extendedList := append(list, value...)
+	var extendedList []uint
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]uint, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -150,7 +252,13 @@ func UInt(list []uint, index int, value ...uint) []uint {
 
 // UInt8 inserts value in list.
 func UInt8(list []uint8, index int, value ...uint8) []uint8 {
-	extendedList := append(list, value...)
+	var extendedList []uint8
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]uint8, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -158,7 +266,13 @@ func UInt8(list []uint8, index int, value ...uint8) []uint8 {
 
 // UInt16 inserts value in list.
 func UInt16(list []uint16, index int, value ...uint16) []uint16 {
-	extendedList := append(list, value...)
+	var extendedList []uint16
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]uint16, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -166,7 +280,13 @@ func UInt16(list []uint16, index int, value ...uint16) []uint16 {
 
 // UInt32 inserts value in list.
 func UInt32(list []uint32, index int, value ...uint32) []uint32 {
-	extendedList := append(list, value...)
+	var extendedList []uint32
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]uint32, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
@@ -174,7 +294,13 @@ func UInt32(list []uint32, index int, value ...uint32) []uint32 {
 
 // UInt64 inserts value in list.
 func UInt64(list []uint64, index int, value ...uint64) []uint64 {
-	extendedList := append(list, value...)
+	var extendedList []uint64
+	if cap(list) - len(list) >= len(value) {
+		extendedList = list[:len(list)+len(value)]
+	} else {
+		extendedList = make([]uint64, len(list)+len(value))
+		copy(extendedList[:index], list[:index])
+	}
 	copy(extendedList[index+len(value):], list[index:])
 	copy(extendedList[index:], value)
 	return extendedList
