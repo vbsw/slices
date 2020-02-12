@@ -1,6 +1,6 @@
 # Insert Package
 
-[![GoDoc](https://godoc.org/github.com/vbsw/slices/insert?status.svg)](https://pkg.go.dev/github.com/vbsw/slices/insert) [![Go Report Card](https://goreportcard.com/badge/github.com/vbsw/slices/insert)](https://goreportcard.com/report/github.com/vbsw/slices/insert) [![Stability: Experimental](https://masterminds.github.io/stability/experimental.svg)](https://masterminds.github.io/stability/experimental.html)
+[![GoDoc](https://godoc.org/github.com/vbsw/slices/insert?status.svg)](https://pkg.go.dev/github.com/vbsw/slices/insert)
 
 ## About
 This package provides the function "insert" for slices of basic types. It is published on <https://github.com/vbsw/slices/insert>.
