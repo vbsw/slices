@@ -3,7 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/vbsw/slices?status.svg)](https://godoc.org/github.com/vbsw/slices) [![Go Report Card](https://goreportcard.com/badge/github.com/vbsw/slices)](https://goreportcard.com/report/github.com/vbsw/slices) [![Stability: Experimental](https://masterminds.github.io/stability/experimental.svg)](https://masterminds.github.io/stability/experimental.html)
 
 ## About
-This module provides functions for slices of basic types. It is published on <https://github.com/vbsw/slices>.
+This module provides functions for slices of basic types. It is published on <https://github.com/vbsw/slices> and <https://gitlab.com/vbsw/slices>.
 
 ## Copyright
 Copyright 2018, 2019, Vitali Baumtrok (vbsw@mailbox.org).
