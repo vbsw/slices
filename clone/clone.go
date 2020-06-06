@@ -865,7 +865,7 @@ func Int64D5DeepCopy(list [][][][][]int64) [][][][][]int64 {
 }
 
 // Interface makes a copy of the given list. The copy is returned.
-// (The object referenced by interface is NOT cloned.)
+// The object referenced by interface is not cloned.
 func Interface(list []interface{}) []interface{} {
 	listCopy := make([]interface{}, len(list), cap(list))
 	copy(listCopy, list)
@@ -880,7 +880,7 @@ func InterfaceD2(list [][]interface{}) [][]interface{} {
 }
 
 // InterfaceD2DeepCopy makes a deep copy of the given list. The copy is returned.
-// (The object referenced by interface is NOT cloned.)
+// The object referenced by interface is not cloned.
 func InterfaceD2DeepCopy(list [][]interface{}) [][]interface{} {
 	listCopy := make([][]interface{}, len(list), cap(list))
 	for i, li := range list {
@@ -897,7 +897,7 @@ func InterfaceD3(list [][][]interface{}) [][][]interface{} {
 }
 
 // InterfaceD3DeepCopy makes a deep copy of the given list. The copy is returned.
-// (The object referenced by interface is NOT cloned.)
+// The object referenced by interface is not cloned.
 func InterfaceD3DeepCopy(list [][][]interface{}) [][][]interface{} {
 	listCopy := make([][][]interface{}, len(list), cap(list))
 	for i, li := range list {
@@ -914,7 +914,7 @@ func InterfaceD4(list [][][][]interface{}) [][][][]interface{} {
 }
 
 // InterfaceD4DeepCopy makes a deep copy of the given list. The copy is returned.
-// (The object referenced by interface is NOT cloned.)
+// The object referenced by interface is not cloned.
 func InterfaceD4DeepCopy(list [][][][]interface{}) [][][][]interface{} {
 	listCopy := make([][][][]interface{}, len(list), cap(list))
 	for i, li := range list {
@@ -931,7 +931,7 @@ func InterfaceD5(list [][][][][]interface{}) [][][][][]interface{} {
 }
 
 // InterfaceD5DeepCopy makes a deep copy of the given list. The copy is returned.
-// (The object referenced by interface is NOT cloned.)
+// The object referenced by interface is not cloned.
 func InterfaceD5DeepCopy(list [][][][][]interface{}) [][][][][]interface{} {
 	listCopy := make([][][][][]interface{}, len(list), cap(list))
 	for i, li := range list {
@@ -955,7 +955,7 @@ func PointerD2(list [][]unsafe.Pointer) [][]unsafe.Pointer {
 }
 
 // PointerD2DeepCopy makes a deep copy of the given list. The copy is returned.
-// (The data the unsafe pointer is pointing to is NOT cloned.)
+// The data the unsafe pointer is pointing to is not cloned.
 func PointerD2DeepCopy(list [][]unsafe.Pointer) [][]unsafe.Pointer {
 	listCopy := make([][]unsafe.Pointer, len(list), cap(list))
 	for i, li := range list {
@@ -972,7 +972,7 @@ func PointerD3(list [][][]unsafe.Pointer) [][][]unsafe.Pointer {
 }
 
 // PointerD3DeepCopy makes a deep copy of the given list. The copy is returned.
-// (The data the unsafe pointer is pointing to is NOT cloned.)
+// The data the unsafe pointer is pointing to is not cloned.
 func PointerD3DeepCopy(list [][][]unsafe.Pointer) [][][]unsafe.Pointer {
 	listCopy := make([][][]unsafe.Pointer, len(list), cap(list))
 	for i, li := range list {
@@ -989,7 +989,7 @@ func PointerD4(list [][][][]unsafe.Pointer) [][][][]unsafe.Pointer {
 }
 
 // PointerD4DeepCopy makes a deep copy of the given list. The copy is returned.
-// (The data the unsafe pointer is pointing to is NOT cloned.)
+// The data the unsafe pointer is pointing to is not cloned.
 func PointerD4DeepCopy(list [][][][]unsafe.Pointer) [][][][]unsafe.Pointer {
 	listCopy := make([][][][]unsafe.Pointer, len(list), cap(list))
 	for i, li := range list {
@@ -1006,7 +1006,7 @@ func PointerD5(list [][][][][]unsafe.Pointer) [][][][][]unsafe.Pointer {
 }
 
 // PointerD5DeepCopy makes a deep copy of the given list. The copy is returned.
-// (The data the unsafe pointer is pointing to is NOT cloned.)
+// The data the unsafe pointer is pointing to is not cloned.
 func PointerD5DeepCopy(list [][][][][]unsafe.Pointer) [][][][][]unsafe.Pointer {
 	listCopy := make([][][][][]unsafe.Pointer, len(list), cap(list))
 	for i, li := range list {
