@@ -1,5 +1,5 @@
 /*
- *       Copyright 2018, 2020, Vitali Baumtrok.
+ *     Copyright 2018, 2020, 2021 Vitali Baumtrok.
  * Distributed under the Boost Software License, Version 1.0.
  *      (See accompanying file LICENSE or copy at
  *        http://www.boost.org/LICENSE_1_0.txt)
@@ -106,6 +106,71 @@ func ByteD4(list [][][][]byte, value byte) bool {
 func ByteD5(list [][][][][]byte, value byte) bool {
 	for _, listValue := range list {
 		if ByteD4(listValue, value) {
+			return true
+		}
+	}
+	return false
+}
+
+// Bytes returns true, if list contains sequence.
+func Bytes(list []byte, sequence []byte) bool {
+	sequenceLength := len(sequence)
+	if sequenceLength > 1 {
+		listLength := len(list)
+		if sequenceLength <= listLength {
+			sequenceValue := sequence[0]
+			for i, listValue := range list[:listLength-sequenceLength+1] {
+				if listValue == sequenceValue {
+					j := 1
+					for j < sequenceLength && list[i+j] == sequence[j] {
+						j++
+					}
+					if j == sequenceLength {
+						return true
+					}
+				}
+			}
+		}
+	} else if sequenceLength == 1 {
+		return Byte(list, sequence[0])
+	}
+	return false
+}
+
+// Bytes2D returns true, if list contains sequence.
+func Bytes2D(list []byte, sequence []byte) bool {
+	for _, listValue := range list {
+		if Bytes(listValue, value) {
+			return true
+		}
+	}
+	return false
+}
+
+// Bytes3D returns true, if list contains sequence.
+func Bytes3D(list []byte, sequence []byte) bool {
+	for _, listValue := range list {
+		if Bytes2D(listValue, value) {
+			return true
+		}
+	}
+	return false
+}
+
+// Bytes4D returns true, if list contains sequence.
+func Bytes4D(list []byte, sequence []byte) bool {
+	for _, listValue := range list {
+		if Bytes3D(listValue, value) {
+			return true
+		}
+	}
+	return false
+}
+
+// Bytes5D returns true, if list contains sequence.
+func Bytes5D(list []byte, sequence []byte) bool {
+	for _, listValue := range list {
+		if Bytes4D(listValue, value) {
 			return true
 		}
 	}
