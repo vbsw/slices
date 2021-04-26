@@ -138,9 +138,9 @@ func Bytes(list []byte, sequence []byte) bool {
 }
 
 // Bytes2D returns true, if list contains sequence.
-func Bytes2D(list []byte, sequence []byte) bool {
-	for _, listValue := range list {
-		if Bytes(listValue, value) {
+func Bytes2D(list [][]byte, sequence []byte) bool {
+	for _, listSeq := range list {
+		if Bytes(listSeq, sequence) {
 			return true
 		}
 	}
@@ -148,9 +148,9 @@ func Bytes2D(list []byte, sequence []byte) bool {
 }
 
 // Bytes3D returns true, if list contains sequence.
-func Bytes3D(list []byte, sequence []byte) bool {
-	for _, listValue := range list {
-		if Bytes2D(listValue, value) {
+func Bytes3D(list [][][]byte, sequence []byte) bool {
+	for _, listSeq := range list {
+		if Bytes2D(listSeq, sequence) {
 			return true
 		}
 	}
@@ -158,9 +158,9 @@ func Bytes3D(list []byte, sequence []byte) bool {
 }
 
 // Bytes4D returns true, if list contains sequence.
-func Bytes4D(list []byte, sequence []byte) bool {
-	for _, listValue := range list {
-		if Bytes3D(listValue, value) {
+func Bytes4D(list [][][][]byte, sequence []byte) bool {
+	for _, listSeq := range list {
+		if Bytes3D(listSeq, sequence) {
 			return true
 		}
 	}
@@ -168,9 +168,9 @@ func Bytes4D(list []byte, sequence []byte) bool {
 }
 
 // Bytes5D returns true, if list contains sequence.
-func Bytes5D(list []byte, sequence []byte) bool {
-	for _, listValue := range list {
-		if Bytes4D(listValue, value) {
+func Bytes5D(list [][][][][]byte, sequence []byte) bool {
+	for _, listSeq := range list {
+		if Bytes4D(listSeq, sequence) {
 			return true
 		}
 	}
