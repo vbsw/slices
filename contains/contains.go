@@ -1,5 +1,5 @@
 /*
- *     Copyright 2018, 2020, 2021 Vitali Baumtrok.
+ *    Copyright 2018, 2020, 2021, 2022 Vitali Baumtrok.
  * Distributed under the Boost Software License, Version 1.0.
  *      (See accompanying file LICENSE or copy at
  *        http://www.boost.org/LICENSE_1_0.txt)
@@ -1121,6 +1121,56 @@ func UInt64D4(list [][][][]uint64, value uint64) bool {
 func UInt64D5(list [][][][][]uint64, value uint64) bool {
 	for _, listValue := range list {
 		if UInt64D4(listValue, value) {
+			return true
+		}
+	}
+	return false
+}
+
+// UIntPtr returns true, if list contains value.
+func UIntPtr(list []uintptr, value uintptr) bool {
+	for _, listValue := range list {
+		if listValue == value {
+			return true
+		}
+	}
+	return false
+}
+
+// UIntPtrD2 returns true, if list contains value.
+func UIntPtrD2(list [][]uintptr, value uintptr) bool {
+	for _, listValue := range list {
+		if UIntPtr(listValue, value) {
+			return true
+		}
+	}
+	return false
+}
+
+// UIntPtrD3 returns true, if list contains value.
+func UIntPtrD3(list [][][]uintptr, value uintptr) bool {
+	for _, listValue := range list {
+		if UIntPtrD2(listValue, value) {
+			return true
+		}
+	}
+	return false
+}
+
+// UIntPtrD4 returns true, if list contains value.
+func UIntPtrD4(list [][][][]uintptr, value uintptr) bool {
+	for _, listValue := range list {
+		if UIntPtrD3(listValue, value) {
+			return true
+		}
+	}
+	return false
+}
+
+// UIntPtrD5 returns true, if list contains value.
+func UIntPtrD5(list [][][][][]uintptr, value uintptr) bool {
+	for _, listValue := range list {
+		if UIntPtrD4(listValue, value) {
 			return true
 		}
 	}

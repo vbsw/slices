@@ -1,5 +1,5 @@
 /*
- *       Copyright 2018, 2020, Vitali Baumtrok.
+ *     Copyright 2018, 2020, 2022, Vitali Baumtrok.
  * Distributed under the Boost Software License, Version 1.0.
  *      (See accompanying file LICENSE or copy at
  *        http://www.boost.org/LICENSE_1_0.txt)
@@ -1508,6 +1508,77 @@ func UInt64D5DeepCopy(list [][][][][]uint64) [][][][][]uint64 {
 	listCopy := make([][][][][]uint64, len(list), cap(list))
 	for i, li := range list {
 		listCopy[i] = UInt64D4DeepCopy(li)
+	}
+	return listCopy
+}
+
+// UIntPtr makes a copy of the given list. The copy is returned.
+func UIntPtr(list []uintptr) []uintptr {
+	listCopy := make([]uintptr, len(list), cap(list))
+	copy(listCopy, list)
+	return listCopy
+}
+
+// UIntPtrD2 makes a shallow copy of the given list. The copy is returned.
+func UIntPtrD2(list [][]uintptr) [][]uintptr {
+	listCopy := make([][]uintptr, len(list), cap(list))
+	copy(listCopy, list)
+	return listCopy
+}
+
+// UIntPtrD2DeepCopy makes a deep copy of the given list. The copy is returned.
+func UIntPtrD2DeepCopy(list [][]uintptr) [][]uintptr {
+	listCopy := make([][]uintptr, len(list), cap(list))
+	for i, li := range list {
+		listCopy[i] = UIntPtr(li)
+	}
+	return listCopy
+}
+
+// UIntPtrD3 makes a shallow copy of the given list. The copy is returned.
+func UIntPtrD3(list [][][]uintptr) [][][]uintptr {
+	listCopy := make([][][]uintptr, len(list), cap(list))
+	copy(listCopy, list)
+	return listCopy
+}
+
+// UIntPtrD3DeepCopy makes a deep copy of the given list. The copy is returned.
+func UIntPtrD3DeepCopy(list [][][]uintptr) [][][]uintptr {
+	listCopy := make([][][]uintptr, len(list), cap(list))
+	for i, li := range list {
+		listCopy[i] = UIntPtrD2DeepCopy(li)
+	}
+	return listCopy
+}
+
+// UIntPtrD4 makes a shallow copy of the given list. The copy is returned.
+func UIntPtrD4(list [][][][]uintptr) [][][][]uintptr {
+	listCopy := make([][][][]uintptr, len(list), cap(list))
+	copy(listCopy, list)
+	return listCopy
+}
+
+// UIntPtrD4DeepCopy makes a deep copy of the given list. The copy is returned.
+func UIntPtrD4DeepCopy(list [][][][]uintptr) [][][][]uintptr {
+	listCopy := make([][][][]uintptr, len(list), cap(list))
+	for i, li := range list {
+		listCopy[i] = UIntPtrD3DeepCopy(li)
+	}
+	return listCopy
+}
+
+// UIntPtrD5 makes a shallow copy of the given list. The copy is returned.
+func UIntPtrD5(list [][][][][]uintptr) [][][][][]uintptr {
+	listCopy := make([][][][][]uintptr, len(list), cap(list))
+	copy(listCopy, list)
+	return listCopy
+}
+
+// UIntPtrD5DeepCopy makes a deep copy of the given list. The copy is returned.
+func UIntPtrD5DeepCopy(list [][][][][]uintptr) [][][][][]uintptr {
+	listCopy := make([][][][][]uintptr, len(list), cap(list))
+	for i, li := range list {
+		listCopy[i] = UIntPtrD4DeepCopy(li)
 	}
 	return listCopy
 }

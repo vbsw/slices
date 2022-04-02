@@ -1,5 +1,5 @@
 /*
- *       Copyright 2018, 2020, Vitali Baumtrok.
+ *     Copyright 2018, 2020, 2022, Vitali Baumtrok.
  * Distributed under the Boost Software License, Version 1.0.
  *      (See accompanying file LICENSE or copy at
  *        http://www.boost.org/LICENSE_1_0.txt)
@@ -1268,6 +1268,66 @@ func UInt64ND4(list [][][][]uint64, index, n int) [][][][]uint64 {
 
 // UInt64ND5 removes n elements from list.
 func UInt64ND5(list [][][][][]uint64, index, n int) [][][][][]uint64 {
+	copy(list[index:], list[index+n:])
+	return list[:len(list)-n]
+}
+
+// UIntPtr removes an element from list.
+func UIntPtr(list []uintptr, index int) []uintptr {
+	copy(list[index:], list[index+1:])
+	return list[:len(list)-1]
+}
+
+// UIntPtrD2 removes an element from list.
+func UIntPtrD2(list [][]uintptr, index int) [][]uintptr {
+	copy(list[index:], list[index+1:])
+	return list[:len(list)-1]
+}
+
+// UIntPtrD3 removes an element from list.
+func UIntPtrD3(list [][][]uintptr, index int) [][][]uintptr {
+	copy(list[index:], list[index+1:])
+	return list[:len(list)-1]
+}
+
+// UIntPtrD4 removes an element from list.
+func UIntPtrD4(list [][][][]uintptr, index int) [][][][]uintptr {
+	copy(list[index:], list[index+1:])
+	return list[:len(list)-1]
+}
+
+// UIntPtrD5 removes an element from list.
+func UIntPtrD5(list [][][][][]uintptr, index int) [][][][][]uintptr {
+	copy(list[index:], list[index+1:])
+	return list[:len(list)-1]
+}
+
+// UIntPtrN removes n elements from list.
+func UIntPtrN(list []uintptr, index, n int) []uintptr {
+	copy(list[index:], list[index+n:])
+	return list[:len(list)-n]
+}
+
+// UIntPtrND2 removes n elements from list.
+func UIntPtrND2(list [][]uintptr, index, n int) [][]uintptr {
+	copy(list[index:], list[index+n:])
+	return list[:len(list)-n]
+}
+
+// UIntPtrND3 removes n elements from list.
+func UIntPtrND3(list [][][]uintptr, index, n int) [][][]uintptr {
+	copy(list[index:], list[index+n:])
+	return list[:len(list)-n]
+}
+
+// UIntPtrND4 removes n elements from list.
+func UIntPtrND4(list [][][][]uintptr, index, n int) [][][][]uintptr {
+	copy(list[index:], list[index+n:])
+	return list[:len(list)-n]
+}
+
+// UIntPtrND5 removes n elements from list.
+func UIntPtrND5(list [][][][][]uintptr, index, n int) [][][][][]uintptr {
 	copy(list[index:], list[index+n:])
 	return list[:len(list)-n]
 }

@@ -1,5 +1,5 @@
 /*
- *       Copyright 2019, 2020, Vitali Baumtrok.
+ *     Copyright 2019, 2020, 2022, Vitali Baumtrok.
  * Distributed under the Boost Software License, Version 1.0.
  *      (See accompanying file LICENSE or copy at
  *        http://www.boost.org/LICENSE_1_0.txt)
@@ -995,6 +995,53 @@ func UInt64D5(list [][][][][]uint64, value uint64) int {
 	valueCount := 0
 	for _, listValue := range list {
 		valueCount += UInt64D4(listValue, value)
+	}
+	return valueCount
+}
+
+// UIntPtr returns count of value in list.
+func UIntPtr(list []uintptr, value uintptr) int {
+	valueCount := 0
+	for _, listValue := range list {
+		if listValue == value {
+			valueCount++
+		}
+	}
+	return valueCount
+}
+
+// UIntPtrD2 returns count of value in list.
+func UIntPtrD2(list [][]uintptr, value uintptr) int {
+	valueCount := 0
+	for _, listValue := range list {
+		valueCount += UIntPtr(listValue, value)
+	}
+	return valueCount
+}
+
+// UIntPtrD3 returns count of value in list.
+func UIntPtrD3(list [][][]uintptr, value uintptr) int {
+	valueCount := 0
+	for _, listValue := range list {
+		valueCount += UIntPtrD2(listValue, value)
+	}
+	return valueCount
+}
+
+// UIntPtrD4 returns count of value in list.
+func UIntPtrD4(list [][][][]uintptr, value uintptr) int {
+	valueCount := 0
+	for _, listValue := range list {
+		valueCount += UIntPtrD3(listValue, value)
+	}
+	return valueCount
+}
+
+// UIntPtrD5 returns count of value in list.
+func UIntPtrD5(list [][][][][]uintptr, value uintptr) int {
+	valueCount := 0
+	for _, listValue := range list {
+		valueCount += UIntPtrD4(listValue, value)
 	}
 	return valueCount
 }

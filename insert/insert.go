@@ -1,5 +1,5 @@
 /*
- *          Copyright 2020, Vitali Baumtrok.
+ *       Copyright 2020, 2022, Vitali Baumtrok.
  * Distributed under the Boost Software License, Version 1.0.
  *      (See accompanying file LICENSE or copy at
  *        http://www.boost.org/LICENSE_1_0.txt)
@@ -3144,6 +3144,156 @@ func UInt64ND4(list [][][][]uint64, index int, values [][][][]uint64) [][][][]ui
 
 // UInt64ND5 inserts values in list.
 func UInt64ND5(list [][][][][]uint64, index int, values [][][][][]uint64) [][][][][]uint64 {
+	if len(values) > 0 {
+		if index < len(list) {
+			if len(values) <= cap(list)-len(list) {
+				list = append(list[:index+len(values)], list[index:]...)
+				copy(list[index:], values)
+			} else {
+				extendedList := append(list, values...)
+				copy(extendedList[index+len(values):], list[index:])
+				copy(extendedList[index:], values)
+				list = extendedList
+			}
+		} else {
+			list = append(list, values...)
+		}
+	}
+	return list
+}
+
+// UIntPtr inserts value in list.
+func UIntPtr(list []uintptr, index int, value uintptr) []uintptr {
+	extendedList := append(list, value)
+	if index < len(list) {
+		copy(extendedList[index+1:], list[index:])
+		extendedList[index] = value
+	}
+	return extendedList
+}
+
+// UIntPtrD2 inserts value in list.
+func UIntPtrD2(list [][]uintptr, index int, value []uintptr) [][]uintptr {
+	extendedList := append(list, value)
+	if index < len(list) {
+		copy(extendedList[index+1:], list[index:])
+		extendedList[index] = value
+	}
+	return extendedList
+}
+
+// UIntPtrD3 inserts value in list.
+func UIntPtrD3(list [][][]uintptr, index int, value [][]uintptr) [][][]uintptr {
+	extendedList := append(list, value)
+	if index < len(list) {
+		copy(extendedList[index+1:], list[index:])
+		extendedList[index] = value
+	}
+	return extendedList
+}
+
+// UIntPtrD4 inserts value in list.
+func UIntPtrD4(list [][][][]uintptr, index int, value [][][]uintptr) [][][][]uintptr {
+	extendedList := append(list, value)
+	if index < len(list) {
+		copy(extendedList[index+1:], list[index:])
+		extendedList[index] = value
+	}
+	return extendedList
+}
+
+// UIntPtrD5 inserts value in list.
+func UIntPtrD5(list [][][][][]uintptr, index int, value [][][][]uintptr) [][][][][]uintptr {
+	extendedList := append(list, value)
+	if index < len(list) {
+		copy(extendedList[index+1:], list[index:])
+		extendedList[index] = value
+	}
+	return extendedList
+}
+
+// UIntPtrN inserts values in list.
+func UIntPtrN(list []uintptr, index int, values []uintptr) []uintptr {
+	if len(values) > 0 {
+		if index < len(list) {
+			if len(values) <= cap(list)-len(list) {
+				list = append(list[:index+len(values)], list[index:]...)
+				copy(list[index:], values)
+			} else {
+				extendedList := append(list, values...)
+				copy(extendedList[index+len(values):], list[index:])
+				copy(extendedList[index:], values)
+				list = extendedList
+			}
+		} else {
+			list = append(list, values...)
+		}
+	}
+	return list
+}
+
+// UIntPtrND2 inserts values in list.
+func UIntPtrND2(list [][]uintptr, index int, values [][]uintptr) [][]uintptr {
+	if len(values) > 0 {
+		if index < len(list) {
+			if len(values) <= cap(list)-len(list) {
+				list = append(list[:index+len(values)], list[index:]...)
+				copy(list[index:], values)
+			} else {
+				extendedList := append(list, values...)
+				copy(extendedList[index+len(values):], list[index:])
+				copy(extendedList[index:], values)
+				list = extendedList
+			}
+		} else {
+			list = append(list, values...)
+		}
+	}
+	return list
+}
+
+// UIntPtrND3 inserts values in list.
+func UIntPtrND3(list [][][]uintptr, index int, values [][][]uintptr) [][][]uintptr {
+	if len(values) > 0 {
+		if index < len(list) {
+			if len(values) <= cap(list)-len(list) {
+				list = append(list[:index+len(values)], list[index:]...)
+				copy(list[index:], values)
+			} else {
+				extendedList := append(list, values...)
+				copy(extendedList[index+len(values):], list[index:])
+				copy(extendedList[index:], values)
+				list = extendedList
+			}
+		} else {
+			list = append(list, values...)
+		}
+	}
+	return list
+}
+
+// UIntPtrND4 inserts values in list.
+func UIntPtrND4(list [][][][]uintptr, index int, values [][][][]uintptr) [][][][]uintptr {
+	if len(values) > 0 {
+		if index < len(list) {
+			if len(values) <= cap(list)-len(list) {
+				list = append(list[:index+len(values)], list[index:]...)
+				copy(list[index:], values)
+			} else {
+				extendedList := append(list, values...)
+				copy(extendedList[index+len(values):], list[index:])
+				copy(extendedList[index:], values)
+				list = extendedList
+			}
+		} else {
+			list = append(list, values...)
+		}
+	}
+	return list
+}
+
+// UIntPtrND5 inserts values in list.
+func UIntPtrND5(list [][][][][]uintptr, index int, values [][][][][]uintptr) [][][][][]uintptr {
 	if len(values) > 0 {
 		if index < len(list) {
 			if len(values) <= cap(list)-len(list) {
