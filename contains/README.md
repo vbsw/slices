@@ -16,3 +16,4 @@ contains is distributed in the hope that it will be useful, but WITHOUT ANY WARR
 - https://golang.org/doc/install
 - https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 - https://go-review.googlesource.com/c/go/+/4662/2/src/runtime/string1.go#b71
+- https://pkg.go.dev/bytes
