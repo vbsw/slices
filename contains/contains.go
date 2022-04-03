@@ -122,7 +122,7 @@ func Bytes(list []byte, sequence []byte) bool {
 // Bytes2D returns true, if list contains sequence.
 func Bytes2D(list [][]byte, sequence []byte) bool {
 	for _, listSeq := range list {
-		if Bytes(listSeq, sequence) {
+		if bytes.Contains(listSeq, sequence) {
 			return true
 		}
 	}
