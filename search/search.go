@@ -9,6 +9,7 @@
 package search
 
 import (
+	"strings"
 	"unsafe"
 )
 
@@ -28,10 +29,10 @@ func Bool(list []bool, element bool) (int, bool) {
 	return 0, false
 }
 
-// BoolRev searches an element in list and returns its index. Second return value
+// BoolDesc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and sorted from true to false.
-func BoolRev(list []bool, element bool) (int, bool) {
+func BoolDesc(list []bool, element bool) (int, bool) {
 	if len(list) > 0 {
 		if list[0] {
 			if element {
@@ -62,11 +63,11 @@ func BoolIdx(list []bool, indices []int, element bool) (int, bool) {
 	return 0, false
 }
 
-// BoolIdxRev searches an element in list and returns its index in indices. Second
+// BoolIdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and sorted from true to false by indices.
-func BoolIdxRev(list []bool, indices []int, element bool) (int, bool) {
+func BoolIdxDesc(list []bool, indices []int, element bool) (int, bool) {
 	if len(indices) > 0 {
 		valueIndex := indices[0]
 		if list[valueIndex] {
@@ -106,11 +107,11 @@ func BoolIdxRng(list []bool, indices []int, element bool) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// BoolIdxRngRev searches an element in list and returns its start and end index in indices.
+// BoolIdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be sorted from true to false by indices.
-func BoolIdxRngRev(list []bool, indices []int, element bool) (int, int, bool) {
+func BoolIdxRngDesc(list []bool, indices []int, element bool) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -124,8 +125,8 @@ func BoolIdxRngRev(list []bool, indices []int, element bool) (int, int, bool) {
 				right = middle - 1
 			}
 		} else {
-			from := boolIdxRngRevL(list, indices, element, left, middle-1)
-			to := boolIdxRngRevR(list, indices, element, middle+1, right)
+			from := boolIdxRngDescL(list, indices, element, left, middle-1)
+			to := boolIdxRngDescR(list, indices, element, middle+1, right)
 			return from, to, true
 		}
 	}
@@ -157,11 +158,11 @@ func BoolRng(list []bool, element bool) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// BoolRngRev searches an element in list and returns its start and end index. Start index
+// BoolRngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be sorted from true to false.
-func BoolRngRev(list []bool, element bool) (int, int, bool) {
+func BoolRngDesc(list []bool, element bool) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -174,8 +175,8 @@ func BoolRngRev(list []bool, element bool) (int, int, bool) {
 				right = middle - 1
 			}
 		} else {
-			from := boolRngRevL(list, element, left, middle-1)
-			to := boolRngRevR(list, element, middle+1, right)
+			from := boolRngDescL(list, element, left, middle-1)
+			to := boolRngDescR(list, element, middle+1, right)
 			return from, to, true
 		}
 	}
@@ -202,10 +203,10 @@ func Byte(list []byte, element byte) (int, bool) {
 	return left, false
 }
 
-// ByteRev searches an element in list and returns its index. Second return value
+// ByteDesc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func ByteRev(list []byte, element byte) (int, bool) {
+func ByteDesc(list []byte, element byte) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -244,11 +245,11 @@ func ByteIdx(list []byte, indices []int, element byte) (int, bool) {
 	return left, false
 }
 
-// ByteIdxRev searches an element in list and returns its index in indices. Second
+// ByteIdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func ByteIdxRev(list []byte, indices []int, element byte) (int, bool) {
+func ByteIdxDesc(list []byte, indices []int, element byte) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -290,11 +291,11 @@ func ByteIdxRng(list []byte, indices []int, element byte) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// ByteIdxRngRev searches an element in list and returns its start and end index in indices.
+// ByteIdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func ByteIdxRngRev(list []byte, indices []int, element byte) (int, int, bool) {
+func ByteIdxRngDesc(list []byte, indices []int, element byte) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -337,11 +338,11 @@ func ByteRng(list []byte, element byte) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// ByteRngRev searches an element in list and returns its start and end index. Start index
+// ByteRngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func ByteRngRev(list []byte, element byte) (int, int, bool) {
+func ByteRngDesc(list []byte, element byte) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -388,10 +389,10 @@ func Complex128(list []complex128, element complex128) (int, bool) {
 	return left, false
 }
 
-// Complex128Rev searches an element in list and returns its index. Second return value
+// Complex128Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func Complex128Rev(list []complex128, element complex128) (int, bool) {
+func Complex128Desc(list []complex128, element complex128) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	elementReal := real(element)
@@ -446,11 +447,11 @@ func Complex128Idx(list []complex128, indices []int, element complex128) (int, b
 	return left, false
 }
 
-// Complex128IdxRev searches an element in list and returns its index in indices. Second
+// Complex128IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func Complex128IdxRev(list []complex128, indices []int, element complex128) (int, bool) {
+func Complex128IdxDesc(list []complex128, indices []int, element complex128) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	elementReal := real(element)
@@ -508,11 +509,11 @@ func Complex128IdxRng(list []complex128, indices []int, element complex128) (int
 	return left, left + 1, false
 }
 
-// Complex128IdxRngRev searches an element in list and returns its start and end index in indices.
+// Complex128IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func Complex128IdxRngRev(list []complex128, indices []int, element complex128) (int, int, bool) {
+func Complex128IdxRngDesc(list []complex128, indices []int, element complex128) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	elementReal := real(element)
@@ -571,11 +572,11 @@ func Complex128Rng(list []complex128, element complex128) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Complex128RngRev searches an element in list and returns its start and end index. Start index
+// Complex128RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func Complex128RngRev(list []complex128, element complex128) (int, int, bool) {
+func Complex128RngDesc(list []complex128, element complex128) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	elementReal := real(element)
@@ -630,10 +631,10 @@ func Complex64(list []complex64, element complex64) (int, bool) {
 	return left, false
 }
 
-// Complex64Rev searches an element in list and returns its index. Second return value
+// Complex64Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func Complex64Rev(list []complex64, element complex64) (int, bool) {
+func Complex64Desc(list []complex64, element complex64) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	elementReal := real(element)
@@ -688,11 +689,11 @@ func Complex64Idx(list []complex64, indices []int, element complex64) (int, bool
 	return left, false
 }
 
-// Complex64IdxRev searches an element in list and returns its index in indices. Second
+// Complex64IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func Complex64IdxRev(list []complex64, indices []int, element complex64) (int, bool) {
+func Complex64IdxDesc(list []complex64, indices []int, element complex64) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	elementReal := real(element)
@@ -750,11 +751,11 @@ func Complex64IdxRng(list []complex64, indices []int, element complex64) (int, i
 	return left, left + 1, false
 }
 
-// Complex64IdxRngRev searches an element in list and returns its start and end index in indices.
+// Complex64IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func Complex64IdxRngRev(list []complex64, indices []int, element complex64) (int, int, bool) {
+func Complex64IdxRngDesc(list []complex64, indices []int, element complex64) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	elementReal := real(element)
@@ -813,11 +814,11 @@ func Complex64Rng(list []complex64, element complex64) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Complex64RngRev searches an element in list and returns its start and end index. Start index
+// Complex64RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func Complex64RngRev(list []complex64, element complex64) (int, int, bool) {
+func Complex64RngDesc(list []complex64, element complex64) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	elementReal := real(element)
@@ -864,10 +865,10 @@ func Float32(list []float32, element float32) (int, bool) {
 	return left, false
 }
 
-// Float32Rev searches an element in list and returns its index. Second return value
+// Float32Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func Float32Rev(list []float32, element float32) (int, bool) {
+func Float32Desc(list []float32, element float32) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -906,11 +907,11 @@ func Float32Idx(list []float32, indices []int, element float32) (int, bool) {
 	return left, false
 }
 
-// Float32IdxRev searches an element in list and returns its index in indices. Second
+// Float32IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func Float32IdxRev(list []float32, indices []int, element float32) (int, bool) {
+func Float32IdxDesc(list []float32, indices []int, element float32) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -952,11 +953,11 @@ func Float32IdxRng(list []float32, indices []int, element float32) (int, int, bo
 	return left, left + 1, false
 }
 
-// Float32IdxRngRev searches an element in list and returns its start and end index in indices.
+// Float32IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func Float32IdxRngRev(list []float32, indices []int, element float32) (int, int, bool) {
+func Float32IdxRngDesc(list []float32, indices []int, element float32) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -999,11 +1000,11 @@ func Float32Rng(list []float32, element float32) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Float32RngRev searches an element in list and returns its start and end index. Start index
+// Float32RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func Float32RngRev(list []float32, element float32) (int, int, bool) {
+func Float32RngDesc(list []float32, element float32) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1042,10 +1043,10 @@ func Float64(list []float64, element float64) (int, bool) {
 	return left, false
 }
 
-// Float64Rev searches an element in list and returns its index. Second return value
+// Float64Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func Float64Rev(list []float64, element float64) (int, bool) {
+func Float64Desc(list []float64, element float64) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1084,11 +1085,11 @@ func Float64Idx(list []float64, indices []int, element float64) (int, bool) {
 	return left, false
 }
 
-// Float64IdxRev searches an element in list and returns its index in indices. Second
+// Float64IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func Float64IdxRev(list []float64, indices []int, element float64) (int, bool) {
+func Float64IdxDesc(list []float64, indices []int, element float64) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1130,11 +1131,11 @@ func Float64IdxRng(list []float64, indices []int, element float64) (int, int, bo
 	return left, left + 1, false
 }
 
-// Float64IdxRngRev searches an element in list and returns its start and end index in indices.
+// Float64IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func Float64IdxRngRev(list []float64, indices []int, element float64) (int, int, bool) {
+func Float64IdxRngDesc(list []float64, indices []int, element float64) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1177,11 +1178,11 @@ func Float64Rng(list []float64, element float64) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Float64RngRev searches an element in list and returns its start and end index. Start index
+// Float64RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func Float64RngRev(list []float64, element float64) (int, int, bool) {
+func Float64RngDesc(list []float64, element float64) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1220,10 +1221,10 @@ func Int(list []int, element int) (int, bool) {
 	return left, false
 }
 
-// IntRev searches an element in list and returns its index. Second return value
+// IntDesc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func IntRev(list []int, element int) (int, bool) {
+func IntDesc(list []int, element int) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1262,11 +1263,11 @@ func IntIdx(list []int, indices []int, element int) (int, bool) {
 	return left, false
 }
 
-// IntIdxRev searches an element in list and returns its index in indices. Second
+// IntIdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func IntIdxRev(list []int, indices []int, element int) (int, bool) {
+func IntIdxDesc(list []int, indices []int, element int) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1308,11 +1309,11 @@ func IntIdxRng(list []int, indices []int, element int) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// IntIdxRngRev searches an element in list and returns its start and end index in indices.
+// IntIdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func IntIdxRngRev(list []int, indices []int, element int) (int, int, bool) {
+func IntIdxRngDesc(list []int, indices []int, element int) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1355,11 +1356,11 @@ func IntRng(list []int, element int) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// IntRngRev searches an element in list and returns its start and end index. Start index
+// IntRngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func IntRngRev(list []int, element int) (int, int, bool) {
+func IntRngDesc(list []int, element int) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1398,10 +1399,10 @@ func Int16(list []int16, element int16) (int, bool) {
 	return left, false
 }
 
-// Int16Rev searches an element in list and returns its index. Second return value
+// Int16Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func Int16Rev(list []int16, element int16) (int, bool) {
+func Int16Desc(list []int16, element int16) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1440,11 +1441,11 @@ func Int16Idx(list []int16, indices []int, element int16) (int, bool) {
 	return left, false
 }
 
-// Int16IdxRev searches an element in list and returns its index in indices. Second
+// Int16IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func Int16IdxRev(list []int16, indices []int, element int16) (int, bool) {
+func Int16IdxDesc(list []int16, indices []int, element int16) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1486,11 +1487,11 @@ func Int16IdxRng(list []int16, indices []int, element int16) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Int16IdxRngRev searches an element in list and returns its start and end index in indices.
+// Int16IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func Int16IdxRngRev(list []int16, indices []int, element int16) (int, int, bool) {
+func Int16IdxRngDesc(list []int16, indices []int, element int16) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1533,11 +1534,11 @@ func Int16Rng(list []int16, element int16) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Int16RngRev searches an element in list and returns its start and end index. Start index
+// Int16RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func Int16RngRev(list []int16, element int16) (int, int, bool) {
+func Int16RngDesc(list []int16, element int16) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1576,10 +1577,10 @@ func Int32(list []int32, element int32) (int, bool) {
 	return left, false
 }
 
-// Int32Rev searches an element in list and returns its index. Second return value
+// Int32Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func Int32Rev(list []int32, element int32) (int, bool) {
+func Int32Desc(list []int32, element int32) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1618,11 +1619,11 @@ func Int32Idx(list []int32, indices []int, element int32) (int, bool) {
 	return left, false
 }
 
-// Int32IdxRev searches an element in list and returns its index in indices. Second
+// Int32IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func Int32IdxRev(list []int32, indices []int, element int32) (int, bool) {
+func Int32IdxDesc(list []int32, indices []int, element int32) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1664,11 +1665,11 @@ func Int32IdxRng(list []int32, indices []int, element int32) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Int32IdxRngRev searches an element in list and returns its start and end index in indices.
+// Int32IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func Int32IdxRngRev(list []int32, indices []int, element int32) (int, int, bool) {
+func Int32IdxRngDesc(list []int32, indices []int, element int32) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1711,11 +1712,11 @@ func Int32Rng(list []int32, element int32) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Int32RngRev searches an element in list and returns its start and end index. Start index
+// Int32RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func Int32RngRev(list []int32, element int32) (int, int, bool) {
+func Int32RngDesc(list []int32, element int32) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1754,10 +1755,10 @@ func Int64(list []int64, element int64) (int, bool) {
 	return left, false
 }
 
-// Int64Rev searches an element in list and returns its index. Second return value
+// Int64Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func Int64Rev(list []int64, element int64) (int, bool) {
+func Int64Desc(list []int64, element int64) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1796,11 +1797,11 @@ func Int64Idx(list []int64, indices []int, element int64) (int, bool) {
 	return left, false
 }
 
-// Int64IdxRev searches an element in list and returns its index in indices. Second
+// Int64IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func Int64IdxRev(list []int64, indices []int, element int64) (int, bool) {
+func Int64IdxDesc(list []int64, indices []int, element int64) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1842,11 +1843,11 @@ func Int64IdxRng(list []int64, indices []int, element int64) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Int64IdxRngRev searches an element in list and returns its start and end index in indices.
+// Int64IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func Int64IdxRngRev(list []int64, indices []int, element int64) (int, int, bool) {
+func Int64IdxRngDesc(list []int64, indices []int, element int64) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -1889,11 +1890,11 @@ func Int64Rng(list []int64, element int64) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Int64RngRev searches an element in list and returns its start and end index. Start index
+// Int64RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func Int64RngRev(list []int64, element int64) (int, int, bool) {
+func Int64RngDesc(list []int64, element int64) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1932,10 +1933,10 @@ func Int8(list []int8, element int8) (int, bool) {
 	return left, false
 }
 
-// Int8Rev searches an element in list and returns its index. Second return value
+// Int8Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func Int8Rev(list []int8, element int8) (int, bool) {
+func Int8Desc(list []int8, element int8) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -1974,11 +1975,11 @@ func Int8Idx(list []int8, indices []int, element int8) (int, bool) {
 	return left, false
 }
 
-// Int8IdxRev searches an element in list and returns its index in indices. Second
+// Int8IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func Int8IdxRev(list []int8, indices []int, element int8) (int, bool) {
+func Int8IdxDesc(list []int8, indices []int, element int8) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2020,11 +2021,11 @@ func Int8IdxRng(list []int8, indices []int, element int8) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Int8IdxRngRev searches an element in list and returns its start and end index in indices.
+// Int8IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func Int8IdxRngRev(list []int8, indices []int, element int8) (int, int, bool) {
+func Int8IdxRngDesc(list []int8, indices []int, element int8) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2067,11 +2068,11 @@ func Int8Rng(list []int8, element int8) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// Int8RngRev searches an element in list and returns its start and end index. Start index
+// Int8RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func Int8RngRev(list []int8, element int8) (int, int, bool) {
+func Int8RngDesc(list []int8, element int8) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -2111,10 +2112,10 @@ func Pointer(list []unsafe.Pointer, element unsafe.Pointer) (int, bool) {
 	return left, false
 }
 
-// PointerRev searches an element in list and returns its index. Second return value
+// PointerDesc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func PointerRev(list []unsafe.Pointer, element unsafe.Pointer) (int, bool) {
+func PointerDesc(list []unsafe.Pointer, element unsafe.Pointer) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	elementUIntPtr := uintptr(element)
@@ -2155,11 +2156,11 @@ func PointerIdx(list []unsafe.Pointer, indices []int, element unsafe.Pointer) (i
 	return left, false
 }
 
-// PointerIdxRev searches an element in list and returns its index in indices. Second
+// PointerIdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func PointerIdxRev(list []unsafe.Pointer, indices []int, element unsafe.Pointer) (int, bool) {
+func PointerIdxDesc(list []unsafe.Pointer, indices []int, element unsafe.Pointer) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	elementUIntPtr := uintptr(element)
@@ -2203,11 +2204,11 @@ func PointerIdxRng(list []unsafe.Pointer, indices []int, element unsafe.Pointer)
 	return left, left + 1, false
 }
 
-// PointerIdxRngRev searches an element in list and returns its start and end index in indices.
+// PointerIdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func PointerIdxRngRev(list []unsafe.Pointer, indices []int, element unsafe.Pointer) (int, int, bool) {
+func PointerIdxRngDesc(list []unsafe.Pointer, indices []int, element unsafe.Pointer) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	elementUIntPtr := uintptr(element)
@@ -2252,11 +2253,11 @@ func PointerRng(list []unsafe.Pointer, element unsafe.Pointer) (int, int, bool) 
 	return left, left + 1, false
 }
 
-// PointerRngRev searches an element in list and returns its start and end index. Start index
+// PointerRngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func PointerRngRev(list []unsafe.Pointer, element unsafe.Pointer) (int, int, bool) {
+func PointerRngDesc(list []unsafe.Pointer, element unsafe.Pointer) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	elementUIntPtr := uintptr(element)
@@ -2296,10 +2297,10 @@ func Rune(list []rune, element rune) (int, bool) {
 	return left, false
 }
 
-// RuneRev searches an element in list and returns its index. Second return value
+// RuneDesc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func RuneRev(list []rune, element rune) (int, bool) {
+func RuneDesc(list []rune, element rune) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -2338,11 +2339,11 @@ func RuneIdx(list []rune, indices []int, element rune) (int, bool) {
 	return left, false
 }
 
-// RuneIdxRev searches an element in list and returns its index in indices. Second
+// RuneIdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func RuneIdxRev(list []rune, indices []int, element rune) (int, bool) {
+func RuneIdxDesc(list []rune, indices []int, element rune) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2384,11 +2385,11 @@ func RuneIdxRng(list []rune, indices []int, element rune) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// RuneIdxRngRev searches an element in list and returns its start and end index in indices.
+// RuneIdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func RuneIdxRngRev(list []rune, indices []int, element rune) (int, int, bool) {
+func RuneIdxRngDesc(list []rune, indices []int, element rune) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2431,11 +2432,11 @@ func RuneRng(list []rune, element rune) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// RuneRngRev searches an element in list and returns its start and end index. Start index
+// RuneRngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func RuneRngRev(list []rune, element rune) (int, int, bool) {
+func RuneRngDesc(list []rune, element rune) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -2474,10 +2475,10 @@ func String(list []string, element string) (int, bool) {
 	return left, false
 }
 
-// StringRev searches an element in list and returns its index. Second return value
+// StringDesc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func StringRev(list []string, element string) (int, bool) {
+func StringDesc(list []string, element string) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -2516,11 +2517,11 @@ func StringIdx(list []string, indices []int, element string) (int, bool) {
 	return left, false
 }
 
-// StringIdxRev searches an element in list and returns its index in indices. Second
+// StringIdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func StringIdxRev(list []string, indices []int, element string) (int, bool) {
+func StringIdxDesc(list []string, indices []int, element string) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2562,11 +2563,11 @@ func StringIdxRng(list []string, indices []int, element string) (int, int, bool)
 	return left, left + 1, false
 }
 
-// StringIdxRngRev searches an element in list and returns its start and end index in indices.
+// StringIdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func StringIdxRngRev(list []string, indices []int, element string) (int, int, bool) {
+func StringIdxRngDesc(list []string, indices []int, element string) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2609,11 +2610,11 @@ func StringRng(list []string, element string) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// StringRngRev searches an element in list and returns its start and end index. Start index
+// StringRngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func StringRngRev(list []string, element string) (int, int, bool) {
+func StringRngDesc(list []string, element string) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -2628,6 +2629,144 @@ func StringRngRev(list []string, element string) (int, int, bool) {
 			to := stringRngR(list, element, middle+1, right)
 			return from, to, true
 		}
+	}
+	return left, left + 1, false
+}
+
+// StringIdxOff searches elements in list starting at offset matching element, i.e.
+// list[indices[i]][offset:offset+len(element)] == element. Returns start and end index
+// in indices, i.e. start <= i < end. Start index is inclusive, end index is exclusive.
+// Third return value is true, if element is in list, otherwise false and the index
+// returned is the insert index. Elements in list must be in ascending order by indices
+// regarding offset.
+func StringIdxOff(list []string, indices []int, element string, offset int) (int, int, bool) {
+	left := 0
+	right := len(indices) - 1
+	if len(element) > 0 {
+		for left <= right {
+			middle := (left + right) / 2
+			valueIndex := indices[middle]
+			value := list[valueIndex]
+			if len(value) >= offset {
+				value = value[offset:]
+				if element > value {
+					left = middle + 1
+				} else if strings.HasPrefix(value, element) {
+					from := stringIdxOffL(list, indices, element, left, middle-1, offset)
+					to := stringIdxOffR(list, indices, element, middle+1, right, offset)
+					return from, to, true
+				} else {
+					right = middle - 1
+				}
+			} else {
+				left = middle + 1
+			}
+		}
+	} else if len(list) > 0 {
+		return 0, len(list), true
+	}
+	return left, left + 1, false
+}
+
+// StringIdxOffDesc searches elements in list starting at offset matching element, i.e.
+// list[indices[i]][offset:offset+len(element)] == element. Returns start and end index
+// in indices, i.e. start <= i < end. Start index is inclusive, end index is exclusive.
+// Third return value is true, if element is in list, otherwise false and the index
+// returned is the insert index. Elements in list must be in descending order by indices
+// regarding offset.
+func StringIdxOffDesc(list []string, indices []int, element string, offset int) (int, int, bool) {
+	left := 0
+	right := len(indices) - 1
+	if len(element) > 0 {
+		for left <= right {
+			middle := (left + right) / 2
+			valueIndex := indices[middle]
+			value := list[valueIndex]
+			if len(value) >= offset {
+				value = value[offset:]
+				if element > value {
+					right = middle - 1
+				} else if strings.HasPrefix(value, element) {
+					from := stringIdxOffL(list, indices, element, left, middle-1, offset)
+					to := stringIdxOffR(list, indices, element, middle+1, right, offset)
+					return from, to, true
+				} else {
+					left = middle + 1
+				}
+			} else {
+				right = middle - 1
+			}
+		}
+	} else if len(list) > 0 {
+		return 0, len(list), true
+	}
+	return left, left + 1, false
+}
+
+// StringOff searches elements in list starting at offset matching element, i.e.
+// list[i][offset:offset+len(element)] == element. Returns start and end index,
+// i.e. start <= i < end. Start index is inclusive, end index is exclusive.
+// Third return value is true, if element is in list, otherwise false and the index
+// returned is the insert index. Elements in list must be in ascending order
+// regarding offset.
+func StringOff(list []string, element string, offset int) (int, int, bool) {
+	left := 0
+	right := len(list) - 1
+	if len(element) > 0 {
+		for left <= right {
+			middle := (left + right) / 2
+			value := list[middle]
+			if len(value) >= offset {
+				value = value[offset:]
+				if element > value {
+					left = middle + 1
+				} else if strings.HasPrefix(value, element) {
+					from := stringOffL(list, element, left, middle-1, offset)
+					to := stringOffR(list, element, middle+1, right, offset)
+					return from, to, true
+				} else {
+					right = middle - 1
+				}
+			} else {
+				left = middle + 1
+			}
+		}
+	} else if len(list) > 0 {
+		return 0, len(list), true
+	}
+	return left, left + 1, false
+}
+
+// StringOff searches elements in list starting at offset matching element, i.e.
+// list[i][offset:offset+len(element)] == element. Returns start and end index,
+// i.e. start <= i < end. Start index is inclusive, end index is exclusive.
+// Third return value is true, if element is in list, otherwise false and the index
+// returned is the insert index. Elements in list must be in descending order
+// regarding offset.
+func StringOffDesc(list []string, element string, offset int) (int, int, bool) {
+	left := 0
+	right := len(list) - 1
+	if len(element) > 0 {
+		for left <= right {
+			middle := (left + right) / 2
+			value := list[middle]
+			if len(value) >= offset {
+				value = value[offset:]
+				if element > value {
+					right = middle - 1
+				} else if strings.HasPrefix(value, element) {
+					from := stringOffL(list, element, left, middle-1, offset)
+					to := stringOffR(list, element, middle+1, right, offset)
+					return from, to, true
+				} else {
+					left = middle + 1
+				}
+			} else {
+				right = middle - 1
+			}
+		}
+	} else if len(list) > 0 {
+		return 0, len(list), true
 	}
 	return left, left + 1, false
 }
@@ -2652,10 +2791,10 @@ func UInt(list []uint, element uint) (int, bool) {
 	return left, false
 }
 
-// UIntRev searches an element in list and returns its index. Second return value
+// UIntDesc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func UIntRev(list []uint, element uint) (int, bool) {
+func UIntDesc(list []uint, element uint) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -2694,11 +2833,11 @@ func UIntIdx(list []uint, indices []int, element uint) (int, bool) {
 	return left, false
 }
 
-// UIntIdxRev searches an element in list and returns its index in indices. Second
+// UIntIdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func UIntIdxRev(list []uint, indices []int, element uint) (int, bool) {
+func UIntIdxDesc(list []uint, indices []int, element uint) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2740,11 +2879,11 @@ func UIntIdxRng(list []uint, indices []int, element uint) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// UIntIdxRngRev searches an element in list and returns its start and end index in indices.
+// UIntIdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func UIntIdxRngRev(list []uint, indices []int, element uint) (int, int, bool) {
+func UIntIdxRngDesc(list []uint, indices []int, element uint) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2787,11 +2926,11 @@ func UIntRng(list []uint, element uint) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// UIntRngRev searches an element in list and returns its start and end index. Start index
+// UIntRngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func UIntRngRev(list []uint, element uint) (int, int, bool) {
+func UIntRngDesc(list []uint, element uint) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -2830,10 +2969,10 @@ func UInt16(list []uint16, element uint16) (int, bool) {
 	return left, false
 }
 
-// UInt16Rev searches an element in list and returns its index. Second return value
+// UInt16Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func UInt16Rev(list []uint16, element uint16) (int, bool) {
+func UInt16Desc(list []uint16, element uint16) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -2872,11 +3011,11 @@ func UInt16Idx(list []uint16, indices []int, element uint16) (int, bool) {
 	return left, false
 }
 
-// UInt16IdxRev searches an element in list and returns its index in indices. Second
+// UInt16IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func UInt16IdxRev(list []uint16, indices []int, element uint16) (int, bool) {
+func UInt16IdxDesc(list []uint16, indices []int, element uint16) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2918,11 +3057,11 @@ func UInt16IdxRng(list []uint16, indices []int, element uint16) (int, int, bool)
 	return left, left + 1, false
 }
 
-// UInt16IdxRngRev searches an element in list and returns its start and end index in indices.
+// UInt16IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func UInt16IdxRngRev(list []uint16, indices []int, element uint16) (int, int, bool) {
+func UInt16IdxRngDesc(list []uint16, indices []int, element uint16) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -2965,11 +3104,11 @@ func UInt16Rng(list []uint16, element uint16) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// UInt16RngRev searches an element in list and returns its start and end index. Start index
+// UInt16RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func UInt16RngRev(list []uint16, element uint16) (int, int, bool) {
+func UInt16RngDesc(list []uint16, element uint16) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -3008,10 +3147,10 @@ func UInt32(list []uint32, element uint32) (int, bool) {
 	return left, false
 }
 
-// UInt32Rev searches an element in list and returns its index. Second return value
+// UInt32Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func UInt32Rev(list []uint32, element uint32) (int, bool) {
+func UInt32Desc(list []uint32, element uint32) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -3050,11 +3189,11 @@ func UInt32Idx(list []uint32, indices []int, element uint32) (int, bool) {
 	return left, false
 }
 
-// UInt32IdxRev searches an element in list and returns its index in indices. Second
+// UInt32IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func UInt32IdxRev(list []uint32, indices []int, element uint32) (int, bool) {
+func UInt32IdxDesc(list []uint32, indices []int, element uint32) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -3096,11 +3235,11 @@ func UInt32IdxRng(list []uint32, indices []int, element uint32) (int, int, bool)
 	return left, left + 1, false
 }
 
-// UInt32IdxRngRev searches an element in list and returns its start and end index in indices.
+// UInt32IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func UInt32IdxRngRev(list []uint32, indices []int, element uint32) (int, int, bool) {
+func UInt32IdxRngDesc(list []uint32, indices []int, element uint32) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -3143,11 +3282,11 @@ func UInt32Rng(list []uint32, element uint32) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// UInt32RngRev searches an element in list and returns its start and end index. Start index
+// UInt32RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func UInt32RngRev(list []uint32, element uint32) (int, int, bool) {
+func UInt32RngDesc(list []uint32, element uint32) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -3186,10 +3325,10 @@ func UInt64(list []uint64, element uint64) (int, bool) {
 	return left, false
 }
 
-// UInt64Rev searches an element in list and returns its index. Second return value
+// UInt64Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func UInt64Rev(list []uint64, element uint64) (int, bool) {
+func UInt64Desc(list []uint64, element uint64) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -3228,11 +3367,11 @@ func UInt64Idx(list []uint64, indices []int, element uint64) (int, bool) {
 	return left, false
 }
 
-// UInt64IdxRev searches an element in list and returns its index in indices. Second
+// UInt64IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func UInt64IdxRev(list []uint64, indices []int, element uint64) (int, bool) {
+func UInt64IdxDesc(list []uint64, indices []int, element uint64) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -3274,11 +3413,11 @@ func UInt64IdxRng(list []uint64, indices []int, element uint64) (int, int, bool)
 	return left, left + 1, false
 }
 
-// UInt64IdxRngRev searches an element in list and returns its start and end index in indices.
+// UInt64IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func UInt64IdxRngRev(list []uint64, indices []int, element uint64) (int, int, bool) {
+func UInt64IdxRngDesc(list []uint64, indices []int, element uint64) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -3321,11 +3460,11 @@ func UInt64Rng(list []uint64, element uint64) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// UInt64RngRev searches an element in list and returns its start and end index. Start index
+// UInt64RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func UInt64RngRev(list []uint64, element uint64) (int, int, bool) {
+func UInt64RngDesc(list []uint64, element uint64) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -3364,10 +3503,10 @@ func UInt8(list []uint8, element uint8) (int, bool) {
 	return left, false
 }
 
-// UInt8Rev searches an element in list and returns its index. Second return value
+// UInt8Desc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func UInt8Rev(list []uint8, element uint8) (int, bool) {
+func UInt8Desc(list []uint8, element uint8) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -3406,11 +3545,11 @@ func UInt8Idx(list []uint8, indices []int, element uint8) (int, bool) {
 	return left, false
 }
 
-// UInt8IdxRev searches an element in list and returns its index in indices. Second
+// UInt8IdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func UInt8IdxRev(list []uint8, indices []int, element uint8) (int, bool) {
+func UInt8IdxDesc(list []uint8, indices []int, element uint8) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -3452,11 +3591,11 @@ func UInt8IdxRng(list []uint8, indices []int, element uint8) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// UInt8IdxRngRev searches an element in list and returns its start and end index in indices.
+// UInt8IdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func UInt8IdxRngRev(list []uint8, indices []int, element uint8) (int, int, bool) {
+func UInt8IdxRngDesc(list []uint8, indices []int, element uint8) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -3499,11 +3638,11 @@ func UInt8Rng(list []uint8, element uint8) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// UInt8RngRev searches an element in list and returns its start and end index. Start index
+// UInt8RngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func UInt8RngRev(list []uint8, element uint8) (int, int, bool) {
+func UInt8RngDesc(list []uint8, element uint8) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -3542,10 +3681,10 @@ func UIntPtr(list []uintptr, element uintptr) (int, bool) {
 	return left, false
 }
 
-// UIntPtrRev searches an element in list and returns its index. Second return value
+// UIntPtrDesc searches an element in list and returns its index. Second return value
 // is true, if element is in list, otherwise false and the index returned is the
 // insert index. Elements in list must be unique and in descending order.
-func UIntPtrRev(list []uintptr, element uintptr) (int, bool) {
+func UIntPtrDesc(list []uintptr, element uintptr) (int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {
@@ -3584,11 +3723,11 @@ func UIntPtrIdx(list []uintptr, indices []int, element uintptr) (int, bool) {
 	return left, false
 }
 
-// UIntPtrIdxRev searches an element in list and returns its index in indices. Second
+// UIntPtrIdxDesc searches an element in list and returns its index in indices. Second
 // return value is true, if element is in list, otherwise false and the index
 // returned is the insert index. Indices must reference elements in list,
 // elements must be unique and in descending order by indices.
-func UIntPtrIdxRev(list []uintptr, indices []int, element uintptr) (int, bool) {
+func UIntPtrIdxDesc(list []uintptr, indices []int, element uintptr) (int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -3630,11 +3769,11 @@ func UIntPtrIdxRng(list []uintptr, indices []int, element uintptr) (int, int, bo
 	return left, left + 1, false
 }
 
-// UIntPtrIdxRngRev searches an element in list and returns its start and end index in indices.
+// UIntPtrIdxRngDesc searches an element in list and returns its start and end index in indices.
 // Start index is inclusive, end index is exclusive. Third return value is true, if element
 // is in list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order by indices.
-func UIntPtrIdxRngRev(list []uintptr, indices []int, element uintptr) (int, int, bool) {
+func UIntPtrIdxRngDesc(list []uintptr, indices []int, element uintptr) (int, int, bool) {
 	left := 0
 	right := len(indices) - 1
 	for left <= right {
@@ -3677,11 +3816,11 @@ func UIntPtrRng(list []uintptr, element uintptr) (int, int, bool) {
 	return left, left + 1, false
 }
 
-// UIntPtrRngRev searches an element in list and returns its start and end index. Start index
+// UIntPtrRngDesc searches an element in list and returns its start and end index. Start index
 // is inclusive, end index is exclusive. Third return value is true, if element is in
 // list, otherwise false and the index returned is the insert index. Elements in list
 // must be in descending order.
-func UIntPtrRngRev(list []uintptr, element uintptr) (int, int, bool) {
+func UIntPtrRngDesc(list []uintptr, element uintptr) (int, int, bool) {
 	left := 0
 	right := len(list) - 1
 	for left <= right {

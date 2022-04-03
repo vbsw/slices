@@ -8,6 +8,7 @@
 package search
 
 import (
+	"strings"
 	"unsafe"
 )
 
@@ -42,7 +43,7 @@ func boolRngR(list []bool, element bool, left, right int) int {
 	return right + 1
 }
 
-func boolRngRevL(list []bool, element bool, left, right int) int {
+func boolRngDescL(list []bool, element bool, left, right int) int {
 	if !element {
 		for left <= right {
 			middle := (left + right) / 2
@@ -57,7 +58,7 @@ func boolRngRevL(list []bool, element bool, left, right int) int {
 	return left
 }
 
-func boolRngRevR(list []bool, element bool, left, right int) int {
+func boolRngDescR(list []bool, element bool, left, right int) int {
 	if element {
 		for left <= right {
 			middle := (left + right) / 2
@@ -106,7 +107,7 @@ func boolIdxRngR(list []bool, indices []int, element bool, left, right int) int 
 	return right + 1
 }
 
-func boolIdxRngRevL(list []bool, indices []int, element bool, left, right int) int {
+func boolIdxRngDescL(list []bool, indices []int, element bool, left, right int) int {
 	if !element {
 		for left <= right {
 			middle := (left + right) / 2
@@ -122,7 +123,7 @@ func boolIdxRngRevL(list []bool, indices []int, element bool, left, right int) i
 	return left
 }
 
-func boolIdxRngRevR(list []bool, indices []int, element bool, left, right int) int {
+func boolIdxRngDescR(list []bool, indices []int, element bool, left, right int) int {
 	if element {
 		for left <= right {
 			middle := (left + right) / 2
@@ -833,6 +834,60 @@ func stringIdxRngR(list []string, indices []int, element string, left, right int
 		valueIndex := indices[middle]
 		value := list[valueIndex]
 		if element == value {
+			left = middle + 1
+		} else {
+			right = middle - 1
+		}
+	}
+	return left
+}
+
+func stringOffL(list []string, element string, left, right, offset int) int {
+	for left <= right {
+		middle := (left + right) / 2
+		value := list[middle]
+		if len(value) >= offset && strings.HasPrefix(value[offset:], element) {
+			right = middle - 1
+		} else {
+			left = middle + 1
+		}
+	}
+	return left
+}
+
+func stringOffR(list []string, element string, left, right, offset int) int {
+	for left <= right {
+		middle := (left + right) / 2
+		value := list[middle]
+		if len(value) >= offset && strings.HasPrefix(value[offset:], element) {
+			left = middle + 1
+		} else {
+			right = middle - 1
+		}
+	}
+	return left
+}
+
+func stringIdxOffL(list []string, indices []int, element string, left, right, offset int) int {
+	for left <= right {
+		middle := (left + right) / 2
+		valueIndex := indices[middle]
+		value := list[valueIndex]
+		if len(value) >= offset && strings.HasPrefix(value[offset:], element) {
+			right = middle - 1
+		} else {
+			left = middle + 1
+		}
+	}
+	return left
+}
+
+func stringIdxOffR(list []string, indices []int, element string, left, right, offset int) int {
+	for left <= right {
+		middle := (left + right) / 2
+		valueIndex := indices[middle]
+		value := list[valueIndex]
+		if len(value) >= offset && strings.HasPrefix(value[offset:], element) {
 			left = middle + 1
 		} else {
 			right = middle - 1
