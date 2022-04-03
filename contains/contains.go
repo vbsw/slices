@@ -113,9 +113,8 @@ func ByteD5(list [][][][][]byte, value byte) bool {
 	return false
 }
 
-// Bytes returns true, if list contains sequence.
-//
-// Deprecated: Use standard function bytes.Contains instead.
+// Bytes returns true, if list contains sequence. (Same as
+// standard function bytes.Contains.)
 func Bytes(list []byte, sequence []byte) bool {
 	return bytes.Contains(list, sequence)
 }
