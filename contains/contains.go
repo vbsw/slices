@@ -9,6 +9,7 @@
 package contains
 
 import (
+	"bytes"
 	"unsafe"
 )
 
@@ -113,28 +114,10 @@ func ByteD5(list [][][][][]byte, value byte) bool {
 }
 
 // Bytes returns true, if list contains sequence.
+//
+// Deprecated: Use standard function bytes.Contains instead.
 func Bytes(list []byte, sequence []byte) bool {
-	sequenceLength := len(sequence)
-	if sequenceLength > 1 {
-		listLength := len(list)
-		if sequenceLength <= listLength {
-			sequenceValue := sequence[0]
-			for i, listValue := range list[:listLength-sequenceLength+1] {
-				if listValue == sequenceValue {
-					j := 1
-					for j < sequenceLength && list[i+j] == sequence[j] {
-						j++
-					}
-					if j == sequenceLength {
-						return true
-					}
-				}
-			}
-		}
-	} else if sequenceLength == 1 {
-		return Byte(list, sequence[0])
-	}
-	return false
+	return bytes.Contains(list, sequence)
 }
 
 // Bytes2D returns true, if list contains sequence.
